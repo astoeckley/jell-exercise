@@ -25,6 +25,25 @@
   [starting-value]
   (* starting-value starting-value))
 
+(defn parse-int
+  "Parses a string and returns number it contains, as a number"
+  [s]
+  (Integer/parseInt (re-find #"\A-?\d+" s)))
+
+(defn process-single-line
+  "Receives a single line of instructions and a starting value; returns the new value after processing."
+  [starting-value line]
+  {:pre  [(string? line) (number? starting-value)]
+   :post [(number? starting-value)]}
+  (let [[command string-parameter] (clojure.string/split line #" ")
+        parameter                  (when string-parameter (parse-int string-parameter))]
+    (case command
+      "ADD" (add starting-value parameter)
+      "SUB" (sub starting-value parameter)
+      "MUL" (mul starting-value parameter)
+      "DIV" (div starting-value parameter)
+      "SQR" (sqr starting-value))))
+
 (defn process-file-lines
   "Receives a seq of all the lines in the exercise file, and processes them"
   [lines]

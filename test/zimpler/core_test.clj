@@ -18,3 +18,19 @@
     (is (= 0 (sub 1 1)))
     (is (= 2 (sub 1 -1)))
     (is (= 1 (sub 1 0)))))
+
+(deftest process-single-command
+  (testing "add"
+    (is (= 5 (process-single-line 2 "ADD 3")))
+    (is (= -13 (process-single-line -10 "ADD -3"))))
+  (testing "sub"
+    (is (= 5 (process-single-line 2 "SUB -3")))
+    (is (= -13 (process-single-line -10 "SUB 3"))))
+  (testing "mul"
+    (is (= 50 (process-single-line 2 "MUL 25")))
+    (is (= 10 (process-single-line -10 "MUL -1"))))
+  (testing "div"
+    (is (= 5 (process-single-line 20 "DIV 4"))))
+  (testing "sqr"
+    (is (= 9 (process-single-line 3 "SQR")))
+    (is (= 100 (process-single-line -10 "SQR")))))
