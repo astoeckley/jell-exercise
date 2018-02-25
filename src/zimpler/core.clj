@@ -1,9 +1,34 @@
 (ns zimpler.core)
 
+(defn add
+  "Process ADD command"
+  [starting-value parameter]
+  (+ starting-value parameter))
+
+(defn sub
+  "Process SUB command"
+  [starting-value parameter]
+  (- starting-value parameter))
+
+(defn mul
+  "Process MUL command"
+  [starting-value parameter]
+  (* starting-value parameter))
+
+(defn div
+  "Process DIV command"
+  [starting-value parameter]
+  (/ starting-value parameter))
+
+(defn sqr
+  "Process SQR command"
+  [starting-value]
+  (* starting-value starting-value))
+
 (defn process-file-lines
   "Receives a seq of all the lines in the exercise file, and processes them"
   [lines]
-  ;;TODO
+  (println lines)
   )
 
 (defn read-file-lines
