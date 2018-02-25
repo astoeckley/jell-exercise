@@ -34,7 +34,7 @@
   "Receives a single line of instructions and a starting value; returns the new value after processing."
   [starting-value line]
   {:pre  [(string? line) (number? starting-value)]
-   :post [(number? starting-value)]}
+   :post [(number? %)]}
   (let [[command string-parameter] (clojure.string/split line #" ")
         parameter                  (when string-parameter (parse-int string-parameter))]
     (case command
@@ -45,10 +45,14 @@
       "SQR" (sqr starting-value))))
 
 (defn process-file-lines
-  "Receives a seq of all the lines in the exercise file, and processes them"
-  [lines]
-  (println lines)
-  )
+  "Receives a seq of all the lines in the exercise file, and a starting value (usually zero), and processes them and returns final result."
+  [starting-value lines]
+  {:pre  [(number? starting-value) (every? string? lines)]
+   :post [(number? %)]}
+  (reduce
+   (fn [result new-line]
+     (process-single-line result new-line))
+   starting-value lines))
 
 (defn read-file-lines
   "Reads the file containing the exercise commands, and returns the contents as a seq of its lines"
@@ -58,8 +62,8 @@
     contents-as-lines))
 
 (defn -main
-  "Entry point for running program from command line. Pass a file name which contains the exercise commands."
+  "Entry point for running program from command line. Pass a file name which contains the exercise commands. Prints the result of processing the file with a starting value of 0."
   [file]
   (println "Received file name:" file)
-  (process-file-lines (read-file-lines file)))
+  (println (process-file-lines 0 (read-file-lines file))))
 
