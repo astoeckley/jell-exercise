@@ -34,3 +34,23 @@
   (testing "sqr"
     (is (= 9 (process-single-line 3 "SQR")))
     (is (= 100 (process-single-line -10 "SQR")))))
+
+(deftest process-multiple-commands
+  (testing "0 commands"
+    (is (= 0 (process-file-lines 0 [])))
+    (is (= 10 (process-file-lines 10 []))))
+  (testing "1 command"
+    (is (= 1 (process-file-lines 0 ["ADD 1"])))
+    (is (= 10 (process-file-lines 10 ["ADD 0"])))
+    (is (= 10 (process-file-lines 10 ["MUL 1"])))
+    (is (= 10 (process-file-lines 20 ["DIV 2"]))))
+  (testing "2 commands"
+    (is (= 1 (process-file-lines 0 ["ADD 1" "ADD 0"])))
+    (is (= 10 (process-file-lines 10 ["ADD 20" "ADD -20"])))
+    (is (= 10 (process-file-lines 10 ["MUL 1" "DIV 1"])))
+    (is (= 10 (process-file-lines 20 ["DIV 2" "MUL 1"])))
+    (is (= 100 (process-file-lines 0 ["ADD 60" "ADD 40"]))))
+  (testing "3+ commands"
+    (is (= 100 (process-file-lines 0 ["ADD 25" "MUL 5" "SUB 25"])))
+    (is (= -100 (process-file-lines 0 ["ADD 25" "MUL 5" "SUB 25" "MUL -1"])))
+    (is (= -1000 (process-file-lines 0 ["ADD 25" "MUL 5" "SUB 25" "MUL -1" "SUB 900"])))))
