@@ -1,14 +1,12 @@
-# zimpler
+To run the exercise, first put the file in the root directory of this project (like the example.file already located here).
 
-A Clojure library designed to ... well, that part is up to you.
+Then, run the following, using the name of the file, when in the root of this directory:
 
-## Usage
+`lein run example.file`
 
-FIXME
+Sample from my terminal:
 
-## License
-
-Copyright © 2018 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+```
+~/projects/zimpler lein run example.file
+9
+```

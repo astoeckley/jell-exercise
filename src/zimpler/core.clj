@@ -64,6 +64,5 @@
 (defn -main
   "Entry point for running program from command line. Pass a file name which contains the exercise commands. Prints the result of processing the file with a starting value of 0."
   [file]
-  (println "Received file name:" file)
   (println (process-file-lines 0 (read-file-lines file))))
 
